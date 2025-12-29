@@ -1,25 +1,5 @@
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnableSequence
-from langchain_core.output_parsers import StrOutputParser
-import os
-from dotenv import load_dotenv
+from services.qa import ask_question
 
-load_dotenv()
-
-apikey=os.getenv('GROK_KEY')
-
-modelo=ChatOpenAI(model="llama-3.1-8b-instant",base_url="https://api.groq.com/openai/v1",api_key=apikey)
-
-template=ChatPromptTemplate.from_messages([
-    ("system","eres un asistente inteligente con caracter fuerte"),
-    ("user","{pregunta}")
-
-])
-parser=StrOutputParser()
-
-pipeline=RunnableSequence(
-    template,modelo,parser
-)
-res=pipeline.invoke({"pregunta":"cuando se inicio la independencia del peru"})
-print(res)
+if __name__=="__main__":
+    res=ask_question("cuando fue la revolucion francesa")
+    print(res)
