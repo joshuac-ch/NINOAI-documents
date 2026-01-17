@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { axiosInstance } from "@/lib/axios";
 import { userlib } from "@/lib/user";
-import { Upload } from "lucide-react";
+import { CirclePlus, Ellipsis, Star, Trash2, Upload } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import SearchPage from "./Components/SearchPage";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 
 export default function IndexPage() {
@@ -18,9 +22,9 @@ export default function IndexPage() {
        const formData=new FormData()
       //formData.append("user",userlib.username)
       formData.append("file",fileDocument)
+      formData.append("pregunta",inputask)
       const acces=localStorage.getItem("access")      
-      const res=await axiosInstance.post("/documentos/upload/",formData,{
-        
+      const res=await axiosInstance.post("/documentos/upload/",formData,{        
         headers:{
           Authorization:`Bearer ${acces}`,
           "Content-Type":"multipart/form-data"
@@ -39,7 +43,7 @@ export default function IndexPage() {
     if(doc){
       setfileDocumen(doc)
       setobjetdoc(url)
-      UploadDocument()
+      
     }else{
       console.log("no se encontro el documento")
     }
@@ -64,6 +68,8 @@ export default function IndexPage() {
   useEffect(()=>{
     GetDocuments()
   },[])
+  const [inputask, setinputask] = useState("")
+
   return (
     <>
     <div className="flex flex-col  h-full  rounded-md">
@@ -73,28 +79,58 @@ export default function IndexPage() {
         <p className="text-2xl">Bienvenido de nuevo, {userlib.username}</p>
         <p className="text-[15px]">Aqui puedes gestionar tus documentos y proyectos</p>
       </div>
+      
+
       <div className="">
-        <div className="hidden">
-          <input type="file" ref={fileref} onChange={(e)=>OnchangeFile(e)} name="" id="" />
-        </div>
-        <Button onClick={()=>fileref.current?.click()} >
-          <div className="flex flex-row gap-2 items-center">
-            <Upload></Upload>
-            <p>Subir Documento</p>
-          </div>
-        </Button>
-        {objetdoc&&
-        (
-          <div className="">
-            <img src={objetdoc} className="w-10 h-10" alt="" />
-          </div>
-        )}
+        <Dialog>
+        <DialogTrigger className="bg-black text-white p-2 rounded-md "><CirclePlus /></DialogTrigger>
+        <DialogContent>          
+            <div className="">
+              <div className="flex justify-center">
+                <div className="hidden">
+                <input type="file" ref={fileref} onChange={(e)=>OnchangeFile(e)} name="" id="" />
+              </div>
+              <Button onClick={()=>fileref.current?.click()} >
+                <div className="flex flex-row gap-2 items-center">
+                  <Upload></Upload>
+                  <p>Subir Documento</p>
+                </div>
+              </Button>
+              </div>
+              {fileDocument&&
+              (
+                <div className="flex justify-center mt-4 text-green-800">
+                  <Label>Documento cargado exitosamente</Label>
+                </div>
+              )}
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="name-1">¿Que buscas en este perfil? *</Label>
+              <Input value={inputask} onChange={(e)=>setinputask(e.target.value)}></Input>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant={'outline'}>Cancelar</Button>
+              </DialogClose>
+              <Button type="submit" onClick={UploadDocument}>Enviar Peticion</Button>
+            </DialogFooter>
+          
+          
+        </DialogContent>
+      </Dialog>
       </div>
      </div>
+     <div className="py-4">
+        <SearchPage></SearchPage>
+      </div>
      <div className="pt-8 flex flex-row flex-wrap gap-4">
         {getDocuments.map((d)=>{
           return(
-            <div key={d.id} className="">
+            <div key={d.id} className="bg-white px-4 rounded-md">
+              <div className="py-4 flex flex-row justify-between items-center">
+                <p className="bg-red-400 text-white px-6 py-2 rounded-full">{d.file_type.toUpperCase()}</p>
+                <p><Star></Star></p>
+              </div>
               <div className="" style={{overflow:"hidden"}}>
                <embed
                 src={d.file_url}
@@ -105,9 +141,9 @@ export default function IndexPage() {
               />
 
               </div>
-              <div className="">
+              <div className="flex flex-row justify-between items-center py-4">
                 <p>{d.created_at?new Date(d.created_at).toLocaleString():""}</p>
-                <p>Tipo: {d.file_type}</p>
+                <p><Ellipsis></Ellipsis></p>
               </div>
             </div>
           )
