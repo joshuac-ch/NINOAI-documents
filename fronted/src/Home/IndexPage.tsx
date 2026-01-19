@@ -8,6 +8,7 @@ import SearchPage from "./Components/SearchPage";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
 
 
 export default function IndexPage() {
@@ -69,7 +70,10 @@ export default function IndexPage() {
     GetDocuments()
   },[])
   const [inputask, setinputask] = useState("")
-
+  const [selectStart, setselectStart] = useState(null)
+  const OnchangeStar=(id)=>{
+    setselectStart(id)
+    }
   return (
     <>
     <div className="flex flex-col  h-full  rounded-md">
@@ -129,9 +133,11 @@ export default function IndexPage() {
             <div key={d.id} className="bg-white px-4 rounded-md">
               <div className="py-4 flex flex-row justify-between items-center">
                 <p className="bg-red-400 text-white px-6 py-2 rounded-full">{d.file_type.toUpperCase()}</p>
-                <p><Star></Star></p>
+                <Button variant={'default'} onClick={()=>OnchangeStar(d.id)}><Star className={`${selectStart===d.id?"text-yellow-200 fill-yellow-200":"bg-transparent"}`}></Star></Button>
               </div>
-              <div className="" style={{overflow:"hidden"}}>
+              <div className="flex w-70 flex-wrap overflow-hidden h-50">
+               {/*
+               pdf no nesesario
                <embed
                 src={d.file_url}
                 type="application/pdf"
@@ -139,11 +145,27 @@ export default function IndexPage() {
                 height="240px"
                 className="rounded-md overflow-y-hidden"
               />
-
+               */}
+              <p className="font-bold text-xl mb-4">{d.ask}</p>
+              <p className="w-full">{d.text}</p>
               </div>
               <div className="flex flex-row justify-between items-center py-4">
                 <p>{d.created_at?new Date(d.created_at).toLocaleString():""}</p>
-                <p><Ellipsis></Ellipsis></p>
+                <div className="">
+                  <Menubar>
+                  <MenubarMenu>
+                    <MenubarTrigger><Ellipsis></Ellipsis></MenubarTrigger>
+                    <MenubarContent>
+                      <MenubarItem>
+                        <Trash2></Trash2>
+                        <p>Eliminar</p>
+                      </MenubarItem>      
+                      
+                    </MenubarContent>
+                  </MenubarMenu>
+                </Menubar>
+                </div>
+
               </div>
             </div>
           )
