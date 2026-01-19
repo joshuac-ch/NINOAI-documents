@@ -1,12 +1,16 @@
-import { Button } from "@/components/ui/button";
+
 import Header from "@/Home/Components/Header";
 import { userlib } from "@/lib/user";
 import { File, LogOut, Settings, Star } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
+import { Toaster } from "sonner";
 
 export default function LeftPage() {
   return (
     <>
+    <div className="">
+        <Toaster></Toaster>
+    </div>
    <div className="min-h-screen min-w-screen flex flex-col p-2">
      <div className="w-full">
         <Header></Header>
@@ -25,7 +29,9 @@ export default function LeftPage() {
                 <File />
             </div>
             <div className="">
+                <Link to={"/home"}>
                 <p>Documentos</p>
+                </Link>
             </div>
         </div>
         <div className="flex flex-row gap-2 py-2">
@@ -33,7 +39,9 @@ export default function LeftPage() {
                 <Star />
             </div>
             <div className="">
+                <Link to={"/favorite"}>
                 <p>Favoritos</p>
+                </Link>
             </div>
         </div>
         <div className="flex flex-row gap-2 py-2">
@@ -41,7 +49,9 @@ export default function LeftPage() {
                 <Settings />
             </div>
             <div className="flex flex-row gap-2">
+                <Link to={"/settings"}>
                 <p>Cuenta</p>
+                </Link>
             </div>
         </div>
        
