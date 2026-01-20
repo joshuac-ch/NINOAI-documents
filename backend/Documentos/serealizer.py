@@ -6,7 +6,7 @@ class DocumentSerealizer(serializers.ModelSerializer):
     file_type=serializers.SerializerMethodField()
     class Meta():
         model=DocumentosModel
-        fields=["id","file_url","file_type","created_at"]
+        fields=["id","file_url","file_type","created_at","ask","text"]
 
     def get_file_url(self,obj):
         request=self.context.get("request")
