@@ -3,18 +3,19 @@ import { Input } from "@/components/ui/input";
 import { Menubar, MenubarContent, MenubarMenu, MenubarSeparator, MenubarTrigger } from "@/components/ui/menubar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { MenubarItem } from "@radix-ui/react-menubar";
-import { Ellipsis, Search, Star } from "lucide-react";
+import { Brain, Ellipsis, ListCheck, Search, Star } from "lucide-react";
 
 export default function SearchPage() {
   return (
    <>
    <div className="bg-white rounded-md">
-        <div className="flex flex-row justify-between p-4">
+        <div className="flex flex-row justify-between items-center p-4">
             <div className="flex flex-row items-center gap-4 rounded-md border-2">
-                <Input placeholder="Buscar..." className="w-130 border-0"></Input>
+                <Input placeholder="Buscar..." className="w-full border-0"></Input>
                 <Search></Search>
             </div>
-            <div className="">
+            <div className="flex flex-row gap-4">
+                <div className="">
                 <Select>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Theme" />
@@ -38,18 +39,29 @@ export default function SearchPage() {
                 </SelectContent>
                 </Select>
             </div>
+            </div>
+
         </div>
         <hr />
         <div className="flex flex-row justify-between items-center p-4">
             <div className="flex flex-row gap-4">
                 <div className="">
-                    <Button className="bg-indigo-500">Recientes</Button>
+                    <Button className="bg-indigo-500">
+                        <Brain />
+                        <p>Recientes</p>
+                    </Button>
                 </div>
                 <div className="">
-                     <Button className="bg-indigo-500">Favoritos</Button>
+                     <Button className="bg-indigo-500">
+                        <Star />
+                        <p>Favoritos</p>
+                     </Button>
                 </div>
                 <div className="">
-                    <Button className="bg-indigo-500">Todos</Button>
+                    <Button className="bg-indigo-500">
+                        <ListCheck />
+                        <p>Todos</p>
+                    </Button>
                 </div>
             </div>
             <div className="">
