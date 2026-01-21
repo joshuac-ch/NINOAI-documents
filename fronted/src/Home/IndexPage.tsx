@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { axiosInstance } from "@/lib/axios";
 import { userlib } from "@/lib/user";
-import { CirclePlus, Ellipsis, Star, Trash2, Upload } from "lucide-react";
+import { CirclePlus, Download, Ellipsis, Star, Trash2, Upload } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import SearchPage from "./Components/SearchPage";
@@ -77,7 +77,7 @@ export default function IndexPage() {
   return (
     <>
     <div className="flex flex-col  h-full  rounded-md">
-     <div className="flex flex-row justify-between items-center">
+     <div className="flex flex-row justify-between flex-wrap items-center">
        <div className="">
         <p className="text-3xl">Mis Documentos</p>
         <p className="text-2xl">Bienvenido de nuevo, {userlib.username}</p>
@@ -87,7 +87,12 @@ export default function IndexPage() {
 
       <div className="">
         <Dialog>
-        <DialogTrigger className="bg-black text-white p-2 rounded-md "><CirclePlus /></DialogTrigger>
+        <DialogTrigger className="bg-indigo-500 text-white p-2 rounded-md ">
+          <div className="flex flex-row gap-2 items-center cursor-pointer">
+            <Upload></Upload>
+            <p>Subir Documento</p>
+          </div>
+        </DialogTrigger>
         <DialogContent>          
             <div className="">
               <div className="flex justify-center">
@@ -146,7 +151,7 @@ export default function IndexPage() {
                 className="rounded-md overflow-y-hidden"
               />
                */}
-              <p className="font-bold text-xl mb-4">{d.ask}</p>
+              <p className="font-bold text-xl mb-4">¿{d.ask}?</p>
               <p className="w-full">{d.text}</p>
               </div>
               <div className="flex flex-row justify-between items-center py-4">
@@ -156,6 +161,10 @@ export default function IndexPage() {
                   <MenubarMenu>
                     <MenubarTrigger><Ellipsis></Ellipsis></MenubarTrigger>
                     <MenubarContent>
+                      <MenubarItem>
+                        <Download></Download>
+                        <p>Descargar</p>
+                      </MenubarItem>
                       <MenubarItem>
                         <Trash2></Trash2>
                         <p>Eliminar</p>
