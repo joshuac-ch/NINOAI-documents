@@ -5,7 +5,7 @@ export default function FavoritePage() {
     <>
     <div className="">
         <div className="">
-            <h1>Favoritos</h1>
+            <h1 className="text-3xl">Favoritos</h1>
         </div>
     </div>
     </>
