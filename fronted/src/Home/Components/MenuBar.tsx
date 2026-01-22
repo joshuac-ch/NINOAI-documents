@@ -9,13 +9,13 @@ export default function MenuBar({icon}) {
             </MenubarTrigger>
             <MenubarContent>
             <MenubarItem>
-                New Tab 
+                Perfil 
             </MenubarItem>
-            <MenubarItem>New Window</MenubarItem>
+            <MenubarItem>Configurar</MenubarItem>
             
-            <MenubarItem>Share</MenubarItem>
+            <MenubarItem>Compartir</MenubarItem>
             
-            <MenubarItem>Print</MenubarItem>
+            <MenubarItem>Cerrar Session</MenubarItem>
             </MenubarContent>
         </MenubarMenu>
     </Menubar>
