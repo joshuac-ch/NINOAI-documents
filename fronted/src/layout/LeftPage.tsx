@@ -24,56 +24,58 @@ export default function LeftPage() {
         <h2>{userlib.username}</h2>
     </div>
     <div className="mt-4">
-        <div className="flex flex-row gap-2 py-2">
+        <Link to={"/home"}>
+        <div className="flex flex-row gap-2 py-2 hover:bg-indigo-400 transition-all delay-2 rounded-md hover:text-white hover:px-2">
             <div className="">
                 <File />
             </div>
-            <div className="">
-                <Link to={"/home"}>
-                <p>Documentos</p>
-                </Link>
+            <div className="">                
+                <p>Documentos</p>                
             </div>
         </div>
-        <div className="flex flex-row gap-2 py-2">
+        </Link>
+        <Link to={"/favorite"}>
+        <div className="flex flex-row gap-2 py-2 hover:bg-indigo-400 transition-all delay-2 rounded-md hover:text-white hover:px-2">
             <div className="">
                 <Star />
             </div>
-            <div className="">
-                <Link to={"/favorite"}>
-                <p>Favoritos</p>
-                </Link>
+            <div className="">                
+                <p>Favoritos</p>               
             </div>
         </div>
-        <div className="flex flex-row gap-2 py-2">
+        </Link>
+        <Link to={"/profile"}>
+        <div className="flex flex-row gap-2 py-2 hover:bg-indigo-400 transition-all delay-2 rounded-md hover:text-white hover:px-2">
             <div className="">
                 <Settings />
             </div>
             <div className="flex flex-row gap-2">
-                <Link to={"/settings"}>
-                <p>Cuenta</p>
-                </Link>
+                <p>Cuenta</p>                
             </div>
         </div>
-       
-        <div className="flex flex-row gap-2 py-4 ">
+       </Link>
+       <Link to={"/login"}>
+        <div className="flex flex-row gap-2 py-2 hover:bg-indigo-400 transition-all delay-2 rounded-md hover:text-white hover:px-2">
             <div className="">
                 <LogOut></LogOut>
             </div>
-            <div className="">
-                <Link to={"/login"}>
-                <p>Cerrar Session</p>
-                </Link>
+            <div className="">                
+                <p>Cerrar Session</p>                
             </div>
         </div>
+        </Link>
     </div>
     </div>
    </div>
-   <div className="p-4 h-60 bg-white/50 text-gray-500 w-50 rounded-md mb-4">
-        <div className="">
-            <p>Nesecitas ayuda</p>
+   <div className="flex flex-col justify-center p-4 h-60 bg-white/50 text-gray-500 w-50 rounded-md mb-4">
+        <div className="flex flex-row justify-center">
+            <img src="/nube.png" className="w-18 h-18" alt="" />
         </div>
-        <div className="">
-            <p>Centro de ayuda </p>
+        <div className="text-center">
+            <p>¿Necesitas ayuda?</p>
+        </div>
+        <div className="text-center mt-4">
+            <p>Centro de ayuda <a href="" className="text-indigo-500">aqui</a></p>
         </div>
    </div>
    </div>
