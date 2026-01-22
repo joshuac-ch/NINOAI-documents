@@ -15,6 +15,7 @@ export default function IndexPage() {
   const fileref=useRef<HTMLInputElement>(null)
   const [objetdoc, setobjetdoc] = useState(null)
   const [fileDocument, setfileDocumen] = useState<File|null>(null)
+  const acces=localStorage.getItem("access")
   const UploadDocument=async()=>{
     try{
       if(!fileDocument){
@@ -53,8 +54,7 @@ export default function IndexPage() {
   }
   const [getDocuments, setgetDocuments] = useState([])
   const GetDocuments=async()=>{
-    try{
-       const acces=localStorage.getItem("access")
+    try{       
       const {data}=await axiosInstance.get(`/documentos/getall/`,{
         headers:{
           Authorization:`Bearer ${acces}`
@@ -70,10 +70,33 @@ export default function IndexPage() {
     GetDocuments()
   },[])
   const [inputask, setinputask] = useState("")
-  const [selectStart, setselectStart] = useState(null)
+  const [selectStart, setselectStart] = useState([])
   const OnchangeStar=(id)=>{
     setselectStart(id)
     }
+  
+  //---------------
+  // star
+  //---------------
+    const onButtonUpdateFavourite=async(id)=>{
+      try{
+        const {data}=await axiosInstance.post(`/documentos/${id}/start/`,{},{
+          headers:{
+          "Authorization":`Bearer ${acces}`
+        }})     
+        setgetDocuments(prev =>
+            prev.map(doc =>
+              doc.id === id
+                ? { ...doc, is_start: data.is_start }
+                : doc
+            )
+          )
+           
+      }catch(err){
+        toast.error("Hubo un error",err)
+      }
+    }
+    
   return (
     <>
     <div className="flex flex-col  h-full  rounded-md">
@@ -138,7 +161,10 @@ export default function IndexPage() {
             <div key={d.id} className="bg-white px-4 rounded-md">
               <div className="py-4 flex flex-row justify-between items-center">
                 <p className="bg-red-400 text-white px-6 py-2 rounded-full">{d.file_type.toUpperCase()}</p>
-                <Button variant={'default'} onClick={()=>OnchangeStar(d.id)}><Star className={`${selectStart===d.id?"text-yellow-200 fill-yellow-200":"bg-transparent"}`}></Star></Button>
+                
+                <Button variant={'default'} onClick={()=>onButtonUpdateFavourite(d.id)}>
+                  <Star className={`${d.is_start?"text-yellow-200 fill-yellow-200":"bg-transparent"}`}></Star>
+                </Button>
               </div>
               <div className="flex w-70 flex-wrap overflow-hidden h-50">
                {/*
