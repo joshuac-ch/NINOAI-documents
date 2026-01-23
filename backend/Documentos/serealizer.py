@@ -6,7 +6,7 @@ class DocumentSerealizer(serializers.ModelSerializer):
     file_type=serializers.SerializerMethodField()
     class Meta():
         model=DocumentosModel
-        fields=["id","file_url","file_type","created_at","ask","text"]
+        fields=["id","file_url","file_type","created_at","ask","text","is_start"]
 
     def get_file_url(self,obj):
         request=self.context.get("request")
@@ -21,3 +21,14 @@ class DocumentSerealizer(serializers.ModelSerializer):
         if name.endswith(".doc") or name.endswith(".docx"):
             return "word"       
         return "other" 
+
+class DocuemntStartSerealizer(serializers.ModelSerializer):
+    file_url=serializers.SerializerMethodField()
+    class Meta():
+        model=DocumentosModel
+        fields=["id","created_at","ask","text","is_start","file_url"]
+    def get_file_url(self,obj):
+        request=self.context.get("request")
+        if not obj.file:
+            return None
+        return request.build_absolute_uri(obj.file.url)    

@@ -7,4 +7,5 @@ class DocumentosModel(models.Model):
     text=models.TextField(blank=True)
     cover=models.ImageField(upload_to="covers/",blank=True,null=True)
     ask=models.TextField(blank=True)
+    is_start=models.BooleanField(default=False)
     created_at=models.DateTimeField(auto_now_add=True)
