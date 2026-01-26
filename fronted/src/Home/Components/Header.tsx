@@ -1,6 +1,7 @@
 import { userlib } from "@/lib/user";
 import { Bell, EyeClosed, MessageCircleMoreIcon } from "lucide-react";
 import MenuBar from "./MenuBar";
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
 
 export default function Header() {    
   return (
@@ -10,15 +11,32 @@ export default function Header() {
             <p className="text-2xl">NinoView</p>
         </div>
         <div className="flex flex-row items-center gap-2">
-            <div className="">
-                <Bell className="h-7 w-7"></Bell>
+            <div className="">                
+                <MenuBar Icono={Bell} children={"No hay notificaciones"}></MenuBar>
             </div>
             <div >
-                <MessageCircleMoreIcon className="h-7 w-7"></MessageCircleMoreIcon>
+                
+                <MenuBar Icono={MessageCircleMoreIcon} children={"No hay mensajes"}></MenuBar>
             </div>
             <div className="">
-                <MenuBar icon={userlib.profile}></MenuBar>
                 
+                <Menubar className="rounded-full p-0">
+                    <MenubarMenu>
+                        <MenubarTrigger className="bg-white/50 p-0">
+                            <img src={userlib.profile} className="w-10 h-10 rounded-full" alt="" />
+                        </MenubarTrigger>
+                        <MenubarContent>
+                        <MenubarItem>
+                            Perfil 
+                        </MenubarItem>
+                        <MenubarItem>Configurar</MenubarItem>
+                        
+                        <MenubarItem>Compartir</MenubarItem>
+                        
+                        <MenubarItem>Cerrar Session</MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
             </div>
         </div>
     </div>
