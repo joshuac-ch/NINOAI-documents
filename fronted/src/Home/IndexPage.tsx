@@ -99,7 +99,7 @@ export default function IndexPage() {
     
   return (
     <>
-    <div className="flex flex-col  h-full  rounded-md">
+    <div className="flex flex-col  rounded-md">
      <div className="flex flex-row justify-between flex-wrap items-center">
        <div className="">
         <p className="text-3xl">Mis Documentos</p>
@@ -110,7 +110,7 @@ export default function IndexPage() {
 
       <div className="">
         <Dialog>
-        <DialogTrigger className="bg-indigo-500 text-white p-2 rounded-md ">
+        <DialogTrigger className="bg-indigo-500 md:mt-0 mt-4 text-white p-2 rounded-md ">
           <div className="flex flex-row gap-2 items-center cursor-pointer">
             <Upload></Upload>
             <p>Subir Documento</p>
@@ -166,7 +166,7 @@ export default function IndexPage() {
                   <Star className={`${d.is_start?"text-yellow-200 fill-yellow-200":"bg-transparent"}`}></Star>
                 </Button>
               </div>
-              <div className="flex w-70 flex-wrap overflow-hidden h-50">
+              <div className="flex md:w-70 flex-wrap overflow-hidden md:h-50">
                {/*
                pdf no nesesario
                <embed
@@ -178,7 +178,7 @@ export default function IndexPage() {
               />
                */}
               <p className="font-bold text-xl mb-4">¿{d.ask}?</p>
-              <p className="w-full">{d.text}</p>
+              <p style={{whiteSpace:"pre-line"}} className="w-full max-h-30 overflow-y-auto">{d.text}</p>
               </div>
               <div className="flex flex-row justify-between items-center py-4">
                 <p>{d.created_at?new Date(d.created_at).toLocaleString():""}</p>
@@ -189,25 +189,22 @@ export default function IndexPage() {
                     <MenubarContent>
                       <MenubarItem>
                         <Download></Download>
-                        <p>Descargar</p>
+                        <a href={d.file_url} target='_blank'>Descargar</a>  
                       </MenubarItem>
                       <MenubarItem>
                         <Trash2></Trash2>
                         <p>Eliminar</p>
-                      </MenubarItem>      
-                      
+                      </MenubarItem>                      
                     </MenubarContent>
                   </MenubarMenu>
                 </Menubar>
                 </div>
-
               </div>
             </div>
           )
         })}    
       </div>   
-    </div>
-    
+    </div>    
     </>
   )
 }

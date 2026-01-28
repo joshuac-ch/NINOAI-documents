@@ -14,13 +14,13 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/login' element={<LoginPage></LoginPage>}></Route>
+      <Route path='/*' element={<LoginPage></LoginPage>}></Route>
       <Route path='/register' element={<RegisterLogin></RegisterLogin>}></Route>
-      <Route path='/' element={<LeftPage></LeftPage>}>
-         <Route path='/home' element={<IndexPage></IndexPage>}></Route>
-         <Route path='/settings' element={<SettingPage></SettingPage>}></Route>
-         <Route path='/favorite' element={<FavoritePage></FavoritePage>}></Route>
-         <Route path='/profile' element={<ProfilePage></ProfilePage>}></Route>
+      <Route path='/log/' element={<LeftPage></LeftPage>}>
+         <Route path='home' element={<IndexPage></IndexPage>}></Route>
+         <Route path='settings' element={<SettingPage></SettingPage>}></Route>
+         <Route path='favorite' element={<FavoritePage></FavoritePage>}></Route>
+         <Route path='profile' element={<ProfilePage></ProfilePage>}></Route>
      </Route>
     </Routes>
    
