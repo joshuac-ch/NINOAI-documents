@@ -9,10 +9,10 @@ export default function SearchPage() {
   return (
    <>
    <div className="bg-white rounded-md">
-        <div className="flex flex-row justify-between items-center p-4">
-            <div className="flex flex-row items-center gap-4 rounded-md border-2">
+        <div className="flex flex-row flex-wrap justify-between items-center p-4">
+            <div className="flex flex-row md:mb-0 mb-4 items-center gap-4 rounded-md border-2">
                 <Input placeholder="Buscar..." className="w-full border-0"></Input>
-                <Search></Search>
+               
             </div>
             <div className="flex flex-row gap-4">
                 <div className="">
